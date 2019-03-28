@@ -1,0 +1,203 @@
+$mapSize: 7500px;
+$kmPixelRatio: 125;
+
+$sunColor:      goldenrod;
+$mercuryColor:  #705738;
+$venusColor:    #CBC8C3;
+$earthColor:    blue;
+$marsColor:     #997953;
+$jupiterColor:  #AE9F98;
+$saturnColor:   gray;
+$uranusColor:   gray;
+$neptuneColor:  gray;
+$plutoColor:    gray;
+
+$moonColor:     gray;
+$phobosColor:   #7F7166;
+$deimosColor:   #C1A78C;
+$ioColor:       #ECE16B;
+$europaColor:   #9A7344;
+$ganymedeColor: #8B8370;
+$callistoColor: #9D917F;
+
+//Солнце уменьшено в 100 раз по понятным причинам
+$sunRadius:     695508 / 100;
+$mercuryRadius: 2440;
+$venusRadius:   6052;
+$earthRadius:   6378;
+$marsRadius:    3397;
+$jupiterRadius: 71490 / 4;
+$saturnRadius:  60270 / 4;
+$uranusRadius:  25560 / 4;
+$neptuneRadius: 24760 / 4;
+$plutoRadius:   1151;
+
+$moonRadius:    1738;
+$phobosRadius:  11 * 100;
+$deimosRadius:  10.4 * 100;
+$ioRadius:      1821;
+$europaRadius:  1561;
+$ganymedeRadius: 2634;
+$callistoRadius: 2410;
+
+@mixin circle($radius, $color) {
+  $radiuspx:   round($radius / $kmPixelRatio) + 0px;
+  $diamererpx: round($radius / $kmPixelRatio * 2) + 0px;
+  height: $diamererpx;
+  width:  $diamererpx;
+  background: $color;
+  -webkit-border-radius: $radiuspx;
+     -moz-border-radius: $radiuspx;
+          border-radius: $radiuspx;
+}
+
+.planet {
+  position: absolute;
+  cursor: pointer;
+}
+
+#space-background {
+  margin: 20px auto auto;
+  position: relative;
+  background: black;
+  width:  $mapSize;
+  height: $mapSize;
+  max-width: 100%;
+  max-height: 75vh;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+#stars {
+  position: absolute;
+  width:  $mapSize;
+  height: $mapSize;
+  background: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+              radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+              radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+              radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+              radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0)) repeat;
+  background-size: 200px 200px;
+}
+
+#sun {
+  @include circle($sunRadius, $sunColor);
+  $sunPos: $mapSize/2 - $sunRadius/$kmPixelRatio;
+  left:  $sunPos;
+  top: $sunPos;
+
+  &:before, &:after {
+    border: 1px solid $sunColor;
+    content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    height: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 100%;
+    transform-origin: center center;
+    opacity: 0;
+    box-sizing: border-box;
+  }
+
+  &:before {
+    animation: 1s .1s pulse2 infinite linear;
+  }
+
+  &::after {
+    animation: 1s pulse infinite linear;
+  }
+}
+
+// outer circle
+@keyframes pulse {
+  0% {
+    transform: scale(2);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+// inner circle
+@keyframes pulse2 {
+  0% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+#mercury {
+  @include circle($mercuryRadius, $mercuryColor);
+}
+
+#venus {
+  @include circle($venusRadius, $venusColor);
+}
+
+#earth {
+  @include circle($earthRadius, $earthColor);
+  background-image: url("/img/earth.svg");
+}
+
+#mars {
+  @include circle($marsRadius, $marsColor);
+}
+
+#jupiter {
+  @include circle($jupiterRadius, $jupiterColor);
+}
+
+#saturn {
+  @include circle($saturnRadius, $saturnColor);
+}
+
+#uranus {
+  @include circle($uranusRadius, $uranusColor);
+}
+
+#neptune {
+  @include circle($neptuneRadius, $neptuneColor);
+}
+
+#pluto {
+  @include circle($plutoRadius, $plutoColor);
+}
+
+#moon {
+  @include circle($moonRadius, $moonColor);
+}
+
+#phobos {
+  @include circle($phobosRadius, $phobosColor);
+}
+
+#deimos {
+  @include circle($deimosRadius, $deimosColor);
+}
+
+#io {
+  @include circle($ioRadius, $ioColor);
+}
+
+#europa {
+  @include circle($europaRadius, $europaColor);
+}
+
+#ganymede {
+  @include circle($ganymedeRadius, $ganymedeColor);
+}
+
+#callisto {
+  @include circle($callistoRadius, $callistoColor);
+}

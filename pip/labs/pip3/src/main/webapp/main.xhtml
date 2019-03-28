@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title> Laboratory work #3 </title>
+        <link type="text/css" rel="stylesheet" href="style.css" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+    </h:head>
+    <h:body onload="drawArea(1)">
+        <div class="outer" id="main_block">
+            <div class="inner" id="canvas_block">
+                <canvas id="canvas" width="705px" height="705px"/>
+                <h:outputScript library="js" name="canvas.js"/>
+            </div>
+
+            <div class="inner" style="padding-left: 150px">
+                <div id="validation_block">
+                    <h:form id="form" method="get" action="#{resultManagerBean.submit}">
+
+                        <h:outputText id="output" value="R = #{resultManagerBean.r}" /> <br/>
+                        <h:inputHidden id="r_field" value="#{resultManagerBean.r}" />
+                        <p:slider for="r_field" display="output" displayTemplate="R = {value}"
+                                  minValue="1" maxValue="5" step="1" onSlideEnd="updateCanvas()"/>
+
+                        <h:inputHidden id="x_field" value="#{resultManagerBean.x}"/>
+
+                        <h:outputText value="X = "/>
+                        <h:selectOneMenu id="x_menu" onchange="setXField()" style="height: 20px">
+                            <f:selectItem itemValue = "-4" itemLabel = "-4" />
+                            <f:selectItem itemValue = "-3" itemLabel = "-3" />
+                            <f:selectItem itemValue = "-2" itemLabel = "-2" />
+                            <f:selectItem itemValue = "-1" itemLabel = "-1" />
+                            <f:selectItem itemValue = "0" itemLabel = "0" />
+                            <f:selectItem itemValue = "1" itemLabel = "1" />
+                            <f:selectItem itemValue = "2" itemLabel = "2" />
+                            <f:selectItem itemValue = "3" itemLabel = "3" />
+                            <f:selectItem itemValue = "4" itemLabel = "4" />
+                        </h:selectOneMenu> <br/> <br/>
+
+                        <h:outputText value="Y = "/>
+                        <p:inputText id="y_field" value="#{resultManagerBean.y}" label="Y" size="5">
+                            <f:convertNumber locale="us"/>
+                            <f:validateDoubleRange minimum="-5" maximum="5"/>
+                        </p:inputText> <br/>
+                        <h:message for="y_field" style="color:red"/> <br/>
+
+                        <h:commandButton id="submit" value="Submit" onclick="setXField()" action="#{resultManagerBean.submit}"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p:dataTable id="resultsTable" value="#{resultManagerBean.resultList}" var="result">
+                <p:column headerText="X">
+                    <h:outputText value="#{result.x}"/>
+                </p:column>
+                <p:column headerText="Y">
+                    <h:outputText value="#{result.y}"/>
+                </p:column>
+                <p:column headerText="R">
+                    <h:outputText value="#{result.r}"/>
+                </p:column>
+                <p:column headerText="Result">
+                    <h:outputText value="#{result.hit ? 'Yes' : 'No'}"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+
+        <div class="centered">
+            <h:form id="historyForm">
+                <h:commandButton value="Clear" action="#{resultManagerBean.clearHistory}"/>
+            </h:form>
+        </div>
+
+        <div class="centered">
+            <h:link outcome = "index">Start page</h:link>
+        </div>
+    </h:body>
+</html>

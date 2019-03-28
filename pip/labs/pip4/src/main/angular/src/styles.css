@@ -1,0 +1,40 @@
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css");
+
+body, html {
+  background-size: 100%;
+  background: url(assets/back.png) fixed;
+  margin: 0;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.block {
+  border-radius: 10px;
+  background-color: #282c34;
+  font-size: 20px;
+  font-family: serif;
+  color: #dbc15c;
+  min-height: 50px;
+  margin: 0 10px 10px 10px;
+  padding: 10px;
+}
+
+.center{
+  top: 50px;
+  left: 50px;
+}
+
+.full-width{
+  width: 100%;
+}
+
+#VT_logo{
+  width: 50px;
+  height: 50px;
+}
+
+.error-text{
+  color: crimson;
+}

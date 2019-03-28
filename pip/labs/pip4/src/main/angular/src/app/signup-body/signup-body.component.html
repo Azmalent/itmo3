@@ -1,0 +1,30 @@
+<form class="login-form" action="rest/user/signup" onsubmit="return validateSignup(this)" method="post">
+
+  <div class="form-group row">
+    <label for="inputLogin" class="col-sm-3 col-form-label">Логин: </label>
+    <div class="col-sm-9">
+      <input id="inputLogin" name="login" type="text" class="form-control" [placeholder]="loginPlaceholder">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-3 col-form-label">Пароль: </label>
+    <div class="col-sm-9">
+      <input id="inputPassword" name="password" type="password" class="form-control" [placeholder]="passwordPlaceholder">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="repeatPassword" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+      <input id="repeatPassword" name="repeatPassword" type="password" class="form-control" [placeholder]="passwordRepeatPlaceholder">
+    </div>
+  </div>
+
+  <label id="errorLabel" class="error-text"></label>
+  <button type="submit" class="btn btn-primary full-width">Регистрация</button>
+  <nav>
+    <a class="link-signup" routerLink="/login">Вход</a>
+  </nav>
+
+</form>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №1</title>
+    <link href="./css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header id="index_header">
+        <h1>Лабораторная работа №1</h1>
+        <h2>Вариант 708</h2>
+        <h3>Выполнили: Съестов Д.В., Савельев Н.С.</h3>
+        <h3>Группа P3217</h3>
+        <h3>Проверил: Николаев В.В.</h3>
+    </header>
+
+    <div class="image" id="area_image">
+        <img src="./resources/areas.png">
+    </div>
+
+    <div class="text" id="validation_block">
+        <form name="form" action="./result.php" onsubmit="return validate()" method="post">
+            <p align="center" style="display: none" id="error_field"></p>
+            Радиус:
+            <input type="radio" name="r" value="1"> 1
+            <input type="radio" name="r" value="2"> 2
+            <input type="radio" name="r" value="3"> 3
+            <input type="radio" name="r" value="4"> 4
+            <input type="radio" name="r" value="5"> 5 <br><br>
+            X: <select name="x">
+                <option value="-5">-5</option>
+                <option value="-4">-4</option>
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select> <br><br>
+            Y: <input type="text" id="y_field" name="y"> <br><br>
+            <input type="hidden" name="timestamp" id="timestamp_field">
+            <input type="submit" value="Отправить">
+            <script>
+                date = new Date();
+                var timestampParts = [date.getHours().toString(), date.getMinutes().toString(), date.getSeconds().toString()];
+                for (var i = 0; i < 3; i++)
+                    if (timestampParts[i].length === 1) timestampParts[i] = "0" + timestampParts[i];
+                var timestamp = timestampParts.join(":");
+                document.getElementById("timestamp_field").setAttribute("value", timestamp);
+            </script>
+        </form>
+    </div>
+
+    <script>
+        function validate() {
+            const regex = /^-?([1-9]\d*|0)$/;
+
+            var radios = document.getElementsByName("r");
+            var radioSelected = false;
+            var i = 0;
+            while (!radioSelected && i < radios.length) {
+                if (radios[i].checked) radioSelected = true;
+                i++;
+            }
+
+            if (!radioSelected)
+            {
+                document.getElementById("error_field").style.display = "block";
+                document.getElementById("error_field").innerHTML = "Не выбрана координата Х";
+                return false;
+            }
+
+            if (!regex.test(document.forms["form"]["y_field"].value))
+            {
+                document.getElementById("error_field").style.display = "block";
+                document.getElementById("error_field").innerHTML = "Некорректно введена координата Y";
+                return false;
+            }
+
+            var y = parseInt(document.forms["form"]["y_field"].value);
+            if (y > 3 || y < -3)
+            {
+                document.getElementById("error_field").style.display = "block";
+                document.getElementById("error_field").innerHTML = "Координата Y должна быть в диапазоне от -3 до 3";
+                return false;
+            }
+        }
+    </script>
+
+</body>
+</html>

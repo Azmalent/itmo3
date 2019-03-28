@@ -1,0 +1,73 @@
+/* Стиль шапки */
+header
+{
+    background-color: lavenderblush;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#index_header
+{
+    font-family: monospace;
+    font-size: medium;
+    color: gray;
+}
+/* Использование псевдоэлементов */
+#index_header::first-line {
+    color: brown;
+    font-style: italic;
+    font-weight: bold;
+}
+/* Селекторы идентификаторов */
+#area_image
+{
+    float: right;
+    margin: 20px 0 0;
+
+}
+#validation_block
+{
+    width: 20%;
+    border: ridge blueviolet;
+}
+/* Селекторы классов */
+.text
+{
+    background-color: lavender;
+}
+.image
+{
+    background-color: inherit;
+    width: auto;
+}
+/* Блочная вёрстка */
+div
+{
+    padding: 20px;
+    margin: 5% auto 5%;
+    width: 33%;
+}
+input[type="text"]
+{
+    padding-left: 20px;
+}
+table
+{
+    border: outset black !important;
+    background-color: white;
+    margin: inherit;
+    text-align: center;
+}
+td
+{
+    width: 50px;
+}
+/* Селектор потомств */
+td>h4[value="1"]
+{
+    color: forestgreen;
+}
+td>h4[value=""]
+{
+    color: darkred;
+}

@@ -1,0 +1,48 @@
+header {
+    background-color: lavenderblush;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: monospace;
+    font-size: medium;
+    color: gray;
+}
+#index_header::first-line {
+    color: brown;
+    font-style: italic;
+    font-weight: bold;
+}
+div {
+    margin: 5% auto 5%;
+}
+.outer {
+    overflow-y: hidden;
+    display: table;
+}
+.outer > .inner {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+#validation_block {
+    width: 200px;
+    padding: 20px;
+    background-color: palegoldenrod;
+    border: ridge darkgoldenrod;
+}
+#canvas_block {
+    padding: 5px;
+    border: groove
+}
+table {
+    border: outset black;
+    background-color: white;
+    margin: inherit;
+    text-align: center;
+}
+.YesRow {
+    color: forestgreen;
+}
+.NoRow {
+    color: darkred;
+}

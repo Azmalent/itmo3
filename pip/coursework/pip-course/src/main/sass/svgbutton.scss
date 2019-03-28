@@ -1,0 +1,21 @@
+a.svgButton {
+  svg {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: box-shadow .2s ease, transform .5s ease, margin-top .2s ease;
+    margin-top: 10px;
+    transform: scale(1, 1);
+    filter: grayscale(50%);
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.2, 1.2);
+      transition: transform .2s ease, fill .2s ease;
+      filter: none;
+    }
+  }
+}

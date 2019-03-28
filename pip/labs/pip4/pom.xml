@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pip4</groupId>
+	<artifactId>pip4</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		
+		<version.compiler.plugin>3.7.0</version.compiler.plugin>
+		<version.install.plugin>2.5.2</version.install.plugin>
+		<version.war.plugin>3.2.0</version.war.plugin>
+		<version.resources.plugin>3.0.2</version.resources.plugin>
+		
+		<version.exec.plugin>1.4.0</version.exec.plugin>
+		<version.lifecycle.plugin>1.0.0</version.lifecycle.plugin>
+		
+	</properties>
+
+	<build>
+		<finalName>pip4</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${version.install.plugin}</version>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					<webResources>
+						<resource>
+							<directory>${basedir}/target/angular/dist/pip4</directory>
+							<includes>
+								<include>*.*</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${version.resources.plugin}</version>
+				<executions>
+				
+					<execution>
+						<id>copy-angular-dir</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/angular</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/angular</directory>
+									<includes>
+										<include>**/*.*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					
+				</executions>
+			</plugin>		
+			
+			<plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<version>${version.exec.plugin}</version>
+				<executions>
+				
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+							<workingDirectory>${basedir}/target/angular</workingDirectory>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>angular-cli build</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build</argument>
+							</arguments>
+							<workingDirectory>${basedir}/target/angular</workingDirectory>
+						</configuration>
+					</execution>
+					
+				</executions>
+			</plugin>
+			
+		</plugins>
+		
+		<!-- Это нужно для компиляции ангуляра перед сборкой -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>lifecycle-mapping</artifactId>
+					<groupId>org.eclipse.m2e</groupId>
+					<version>${version.lifecycle.plugin}</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+							
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<artifactId>exec-maven-plugin</artifactId>
+										<groupId>org.codehaus.mojo</groupId>
+										<versionRange>[1.4.0,)</versionRange>
+										<goals>
+											<goal>exec</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<artifactId>maven-resources-plugin</artifactId>
+										<groupId>org.apache.maven.plugins</groupId>
+										<versionRange>[3.0.0,)</versionRange>
+										<goals>
+											<goal>copy-resources</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+	</build>
+	
+	<dependencies>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.6.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.6.Final</version>
+		</dependency>
+
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1211</version>
+		</dependency>
+
+		<!-- Java EE stuff -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Jersey -->
+		<dependency> 
+			<groupId>com.sun.jersey</groupId> 
+			<artifactId>jersey-bundle</artifactId> 
+			<version>1.18.1</version> 
+		</dependency> 
+		<dependency> 
+			<groupId>com.sun.jersey</groupId> 
+			<artifactId>jersey-json</artifactId> 
+			<version>1.18.1</version> 
+		</dependency>
+
+	</dependencies>
+</project>

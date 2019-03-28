@@ -1,0 +1,17 @@
+.btn {
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+canvas {
+  background-color: white;
+  border-radius: 10px;
+  position: center;
+  width: 33vw;
+  height: 33vw;
+}
+
+table {
+  background-color: lightgray;
+  color: black;
+}

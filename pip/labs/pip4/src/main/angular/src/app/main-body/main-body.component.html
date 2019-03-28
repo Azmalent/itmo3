@@ -1,0 +1,75 @@
+<form id="form" role="form" action="rest/point/check" 
+  onsubmit="return validateInput(this);" (submit)="onFormSubmit()" method="post">
+  <div class="form-group row">
+    <div class="col-xs-3 col-sm-3 col-lg-3"></div>
+    <div class="col-xs-2 col-sm-2 col-lg-2">
+      <label id="labelX" for="X">X</label>
+      <select id="X" name="X" class = "form-control">
+        <option value="-5">-5</option>
+        <option value="-4">-4</option>
+        <option value="-3">-3</option>
+        <option value="-2">-2</option>
+        <option value="-1">-1</option>
+        <option selected value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select> 
+    </div>
+
+    <div class="col-xs-2 col-sm-2 col-lg-2">
+      <div class = "form-group">
+        <label id="labelY" for="Y">Y</label>
+        <input id="Y" type="text" class="form-control" name="Y" placeholder="[-5, 3]"/>
+      </div>
+    </div>
+
+    <div class = "col-xs-2 col-sm-2 col-lg-2">
+      <label id="labelR" for="R">R</label>
+      <select id="R" name="R" class="form-control" (change)="onRadiusChange()">
+        <option selected value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-lg-3"></div>
+  </div>
+
+  <label id="errorLabel" class="error-text"></label>
+  <input id="btn-check" class="btn btn-info" type="submit" value="Отправить">
+</form>
+
+<form id="click_form" action="rest/point/check" method="post">
+  <input id="click_X" type="hidden" name="X"/>
+  <input id="click_Y" type="hidden" name="Y"/>
+  <input id="click_R" type="hidden" name="R"/>
+</form>
+
+<canvas id="canvas" class="center" width="705" height="705" (click)="onCanvasClick($event)"></canvas> <br>
+
+<div *ngIf="points.length > 0">
+  <table class = "table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Y</th>
+        <th>R</th>
+        <th>Попадание</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let point of points">
+        <td>{{point.x | trunc}}</td>
+        <td>{{point.y | trunc}}</td>
+        <td>{{point.r}}</td>
+        <td>{{point.hit | yesno}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<form action="rest/user/logout" method="post">
+  <input class="btn btn-danger" type="submit" value="Выход">
+</form>

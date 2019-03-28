@@ -1,0 +1,86 @@
+@import "../../../node_modules/react-alice-carousel/src/alice-carousel.scss";
+@import 'svgbutton.scss';
+@import 'planets.scss';
+
+$header-height: 3.1875rem;
+$footer-height: 3.1875rem;
+
+@mixin size($size) {
+  height: $size;
+  width: $size;
+}
+
+.background {
+  background: url('/img/back.jpg') fixed no-repeat;
+}
+
+header  {
+  @media screen {
+    @media (max-width: 768px) {
+      justify-content: start;
+    }
+    @media (min-width: 768px) {
+      justify-content: space-between;
+    }
+  }
+}
+
+.content {
+  min-height: calc(100vh - #{$footer-height} - #{$header-height} - 35px);
+}
+
+footer {
+  height: $footer-height;
+
+  & > span {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-flex-align: center;
+    -webkit-align-items: center;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+.alice-carousel__prev-btn-item, .alice-carousel__next-btn-item {
+  background: white;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.outlined-text {
+  color: #fff;
+  text-shadow: 0 0 25px rgba(0,0,0,1);
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%
+}
+
+.oauth-icon {
+  @include size(24px);
+}
